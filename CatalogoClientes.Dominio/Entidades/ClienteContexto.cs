@@ -4,10 +4,7 @@ namespace CatalogoClientes.Dominio.Entidades
 {
     public class ClienteContexto : DbContext
     {
-        public ClienteContexto() : base("name=ConexaoClientes")
-        {
-
-        }
+        public ClienteContexto() : base("name=ConexaoClientes") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

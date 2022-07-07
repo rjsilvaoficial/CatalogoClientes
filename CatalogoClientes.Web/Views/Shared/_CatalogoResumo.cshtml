@@ -1,0 +1,53 @@
+﻿@model CatalogoClientes.Dominio.Entidades.Cliente
+
+<div class="well">
+    <table>
+        <tr>
+            <td rowspan="3">
+                <a href="#" class="thumbnail inner-border">
+                    <img src="" width="" height="" />
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-primary btn-large">
+                    <strong>@Model.Nome</strong>
+                    <br />
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @*<a class="btn btn-toolbar btn-default">*@
+                @Model.Email
+                <br />
+                @Model.Endereco
+                <br />
+                @*</a>*@
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">
+                        @Html.ActionLink("Editar", "Edit", new
+                        {
+                            id = Model.ClienteId
+                        })
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        @Html.ActionLink("Detalhes", "Details", new
+                        {
+                            id = Model.ClienteId
+                        })
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        @Html.ActionLink("Deletar", "Delete", new
+                        {
+                            id = Model.ClienteId
+                        })
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
