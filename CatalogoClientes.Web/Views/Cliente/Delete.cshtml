@@ -4,61 +4,73 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="clientes panel panel-primary">
+    <div class="panel-heading panel-head">Cadastro de clientes</div>
+    <div class="panel-body">
+        <h3>Deseja excluir este cliente?</h3>
+        <div>
+            <h4>Cliente</h4>
+            <hr />
+            <dl class="dl-horizontal">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+                @if (Model.Imagem != null)
+                {
+                    <dt>
+                        Imagem
+                    </dt>
+                    <dd>
+                        <img src="@Url.Action("ExibirImagem","arquivo", new {id = Model.ClienteId})"
+                             width="150" height="150" />
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+                }
+                else
+                {
+                    <dt>
+                        Imagem
+                    </dt>
+                    <dd>
+                        <img src="~/images/noPicture.png"
+                             width="150" height="150" />
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Endereco)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Endereco)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Imagem)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagemTipo)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImagemTipo)
-        </dd>
 
-    </dl>
+            </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Excluir" class="btn btn-danger" />@Html.ActionLink("Retornar", "Catalogo", null, new { @class = "btn btn-default" })
         </div>
-    }
+            }
+        </div>
+    </div>
 </div>

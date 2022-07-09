@@ -4,55 +4,61 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="book-example panel panel-primary">
+    <div class="panel-heading panel-head">Cadastro de clientes</div>
+    <div class="panel-body">
 
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+        <dl class="dl-horizontal">
+            @if (Model.Imagem != null)
+            {
+                <dt>
+                    Imagem
+                </dt>
+                <dd>
+                    <img src="@Url.Action("ExibirImagem","arquivo", new {id = Model.ClienteId})"
+                         width="150" height="150" />
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            }
+            else
+            {
+                <dt>
+                    Imagem
+                </dt>
+                <dd>
+                    <img src="~/images/noPicture.png"
+                         width="150" height="150" />
+                </dd>
+            }
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Imagem)
-        </dd>
+            <dd class="btn-">
+                @Html.DisplayFor(model => model.Endereco)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagemTipo)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImagemTipo)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ClienteId }, new { @class = "btn btn-success"})@Html.ActionLink("Retornar", "Catalogo", null, new { @class = "btn btn-default" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClienteId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

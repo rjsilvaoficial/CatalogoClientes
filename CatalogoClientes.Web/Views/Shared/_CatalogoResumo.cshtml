@@ -12,7 +12,7 @@
                     @if (Model.Imagem != null)
                     {
                         <div class="pull-left" style="margin-right: 10px">
-                            <img class="img-thumbnail" src="@Url.Action("exibirimagem","arquivo", new {id = Model.ClienteId})"
+                            <img class="img-thumbnail" src="@Url.Action("ExibirImagem","arquivo", new {id = Model.ClienteId})"
                                  width="150" height="150" />
                         </div>
 
@@ -20,7 +20,7 @@
                     else
                     {
                         <div class="pull-left" style="margin-right: 10px">
-                            <img class="img-thumbnail" src="path"
+                            <img class="img-thumbnail" src="~/images/noPicture.png"
                                  width="150" height="150" />
                         </div>
                     }
@@ -50,7 +50,7 @@
                             new { @class = "btn btn-success" })
                         @Html.ActionLink("Detalhes", "Details",
                             new { id = Model.ClienteId },
-                            new { @class = "btn btn-primary" })
+                            new { @class = "btn btn-warning" })
                         @Html.ActionLink("Deletar", "Delete",
                             new { id = Model.ClienteId },
                             new { @class = "btn btn-danger" })

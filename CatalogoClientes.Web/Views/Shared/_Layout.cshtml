@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
@@ -9,19 +9,23 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-        <div class="container">
-            <div class="navbar navbar-inverse">
-                <img src="" @*width="500" height="300"*@/>
+    <div class="container">
+        <div class="navbar navbar-inverse">
+            <img src="" @*width="500" height="300"*@ />
+        </div>
+        <div class="row panel">
+            <div id="menu" class="col-xs-3">
+                Menu
             </div>
-            <div class="row panel">
-                <div id="menu" class="col-xs-3">
-                    Menu
-                </div>
-                <div class="col-xs-8">
-                    @RenderBody()
-                </div>
+            <div class="col-xs-8">
+                @if (TempData["Mensagem"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Mensagem"]</div>
+                }
+                @RenderBody()
             </div>
         </div>
+    </div>
 
 </body>
 </html>

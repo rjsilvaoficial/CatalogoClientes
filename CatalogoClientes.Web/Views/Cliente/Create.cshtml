@@ -8,10 +8,13 @@
     <div class="panel-heading panel-head">Cadastro de clientes</div>
     <div class="panel-body">
         
+        @*O using abaixo integra o bloco responsável por validar o input do arquivo*@
         @using (Html.BeginForm("Create", "Cliente", null, FormMethod.Post, new
         {
             enctype = "multipart/form-data"
         }))
+
+
         {
             @Html.AntiForgeryToken()
 
@@ -60,6 +63,8 @@
                         </div>
                     </div>*@
 
+
+                @*O trecho abaixo compreende o form com o input para arquivo*@
                 <div class="form-group">
                     @Html.Label("Imagem", new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -70,13 +75,13 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Criar cliente" class="btn btn-success" />
+                        <input type="submit" value="Criar cliente" class="btn btn-success" /> @Html.ActionLink("Retornar", "Catalogo", null, new {@class="btn btn-default"})
                     </div>
                 </div>
             </div>
         }
-        <div>
+        @*<div>
             @Html.ActionLink("Retornar", "Catalogo")
-        </div>
+        </div>*@
     </div>
 </div>

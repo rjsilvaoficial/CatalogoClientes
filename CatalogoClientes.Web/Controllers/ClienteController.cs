@@ -44,7 +44,7 @@ namespace CatalogoClientes.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+            Cliente cliente = db.Clientes.FirstOrDefault(c=>c.ClienteId == id);
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -65,27 +65,32 @@ namespace CatalogoClientes.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(
             [Bind(Include = "ClienteId,Nome,Email,Endereco,Imagem,ImagemTipo")] 
-                Cliente cliente,HttpPostedFileBase upload )
+
+                Cliente cliente,HttpPostedFileBase upload )  //HttpPostedFileBase é para o upload de arquivos
         {
-            if(upload != null && upload.ContentLength > 0)
+            if (ModelState.IsValid)
             {
-                var arqImagem = new Cliente
+                if (upload != null && upload.ContentLength > 0) //Verificação se há algo no arquivo
                 {
-                    ImagemTipo = upload.ContentType
-                };
-                using(var reader = new BinaryReader(upload.InputStream))
-                {
-                    arqImagem.Imagem = reader.ReadBytes(upload.ContentLength);
+                    var arqImagem = new Cliente
+                    {
+                        ImagemTipo = upload.ContentType  //Nome do tipo do arquivo
+                    };
+                    using (var reader = new BinaryReader(upload.InputStream)) //Leitor bin transforma o inputstream em bits
+                    {
+                        arqImagem.Imagem = reader.ReadBytes(upload.ContentLength);
+                    }
+                    cliente.Imagem = arqImagem.Imagem;
+                    cliente.ImagemTipo = arqImagem.ImagemTipo;
                 }
-                cliente.Imagem = arqImagem.Imagem;
-                cliente.ImagemTipo = arqImagem.ImagemTipo;
+
+                db.Clientes.Add(cliente);
+                db.SaveChanges();
+                TempData["Mensagem"] = string.Format($"{cliente.Nome} incluído com sucesso!");
+                return RedirectToAction("Catalogo");
             }
-            db.Clientes.Add(cliente);
-            db.SaveChanges();
-            TempData["Mensagem"] = string.Format($"{cliente.Nome} incluído com sucesso!");
 
-
-            return RedirectToAction("Catalogo");
+            return View(cliente);
         }
 
         // GET: Cliente/Edit/5
@@ -108,12 +113,26 @@ namespace CatalogoClientes.Web.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClienteId,Nome,Email,Endereco,Imagem,ImagemTipo")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ClienteId,Nome,Email,Endereco,Imagem,ImagemTipo")] Cliente cliente, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
+                if(upload != null && upload.ContentLength > 0)
+                {
+                    var arqImagem = new Cliente
+                    {
+                        ImagemTipo = upload.ContentType
+                    };
+                    using(var reader = new BinaryReader(upload.InputStream))
+                    {
+                        arqImagem.Imagem = reader.ReadBytes(upload.ContentLength);
+                    }
+                    cliente.Imagem = arqImagem.Imagem;
+                    cliente.ImagemTipo = arqImagem.ImagemTipo;
+                }
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Mensagem"] = string.Format($"{cliente.Nome} atualizado com sucesso!");
                 return RedirectToAction("Catalogo");
             }
             return View(cliente);
@@ -142,6 +161,7 @@ namespace CatalogoClientes.Web.Controllers
             Cliente cliente = db.Clientes.Find(id);
             db.Clientes.Remove(cliente);
             db.SaveChanges();
+            TempData["Mensagem"] = string.Format($"{cliente.Nome} excluído com sucesso!");
             return RedirectToAction("Catalogo");
         }
 
